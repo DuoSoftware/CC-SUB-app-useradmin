@@ -1,0 +1,189 @@
+<div layout="row" layout-fill>
+
+    <div flex ng-class="{'flex-35':showInpageReadpane}" layout="column">
+        <div class="toolbar list-header" layout="row" layout-align="space-between center">
+            <div class="productName" layout="column" layout-align="center start" flex>
+                <div layout="row">
+                    <span layout="column" layout-align="center center" class="header-text">Name</span>
+                    <div layout="column" layout="center center">
+                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
+                            <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
+                            <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="productName" layout="column" layout-align="center start" flex ng-if="!showInpageReadpane">
+                <div layout="row">
+                    <span layout="column" layout-align="center center" class="header-text">Email</span>
+                    <div layout="column" layout="center center">
+                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
+                            <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
+                            <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="productName" layout="column" layout-align="center end" flex="10">
+                <div layout="row">
+                    <span layout="column" layout-align="center center" class="header-text">Status</span>
+                    <div layout="column" layout="center center">
+                        <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'Name')">
+                            <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                        <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'Name')">
+                            <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                            <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="productName w-50 text-center" layout="column" layout-align="center end">-->
+                <!--<div layout="row" layout-align="center center">-->
+                    <!--<span layout="column" layout-align="center center" class="header-text">Action</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <md-content ms-scroll flex class="main-list-pane">
+            <div class="main-list-preloader animate-fade-in-out" layout="row" layout-sm="column" layout-align="space-around" ng-hide="!isLoading">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            <div class="msg-empty-list full animate-fade-in-out" layout="column" layout-align="center center" ng-if="vm.plans.length == 0">
+                <img src="app/core/app_icons/plan_app_icon_list.svg" alt="No adjustments">
+                <div class="mt-20">You have'nt created any plans yet</div>
+            </div>
+
+            <div class="list-item" layout="row" layout-align="center center" flex ng-repeat="owernuser in invitationLogs | orderBy:'displayName' | filter:vm.selectedEmailInvite || undefined"
+                 ng-if="owernuser.jobTitle!='admin'"
+                 ng-class="{'selected': vm.selectedEmailInvite === owernuser && showInpageReadpane}">
+
+                <div layout="row" layout-align="center center" ng-click="switchInfoPane('show', owernuser)" flex fill-height                 md-ink-ripple>
+                    <div class="dual-info" layout="column" layout-align="center start" flex>
+                        <span>{{owernuser.name}}</span>
+                        <div class="dual-info-sub"></div>
+                    </div>
+
+                    <div layout="column" layout-align="center start" flex ng-if="!showInpageReadpane">
+                        {{owernuser.email}}
+                    </div>
+
+                    <div class="status" layout="column" layout-align="center end" ng-class="{'flex-30':showInpageReadpane == true,'flex-10': showInpageReadpane == false}">
+                        <span class="pill" layout="row" layout-align="center center" ng-class="{'negative':owernuser.status==='Expired','positive':owernuser.status==='Confirmed', 'partial':owernuser.status==='Pending'}">{{owernuser.status}}</span>
+                    </div>
+                </div>
+                <!--<div layout="row" layout-align="end center" class="w-50">-->
+                    <!--<md-button ng-click="removeInviteUser(owernuser, $event)" class="md-icon-button" style="margin-right: -5px">-->
+                        <!--<md-icon md-font-icon="icon-close-circle" class="md-warn"></md-icon>-->
+                    <!--</md-button>-->
+                <!--</div>-->
+            </div>
+        </md-content>
+    </div>
+
+    <div flex class="inpage-readpane mt-0" layout="column" md-whiteframe="4dp" ng-if="showInpageReadpane">
+
+        <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar">
+            <h3 class="group-sub-head" layout="row" layout-align="start center">User info</h3>
+            <div layout="row">
+                <md-button class="md-icon-button" ng-click="switchInfoPane('close',vm.selectedPlan)">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                    <md-tooltip>Close</md-tooltip>
+                </md-button>
+            </div>
+        </div>
+        <md-content flex ms-scroll layout="column" class="inpage-readpane-body" ng-if="!inpageReadPaneEdit">
+
+            <div class="pos-rel mb-30">
+                <div layout="row" layout-align="space-between center">
+                    <div layout="row" layout-align="space-between center" ng-class="{'flex':paymentRetryHistory.paymentFailedDate == null}">
+                        <div layout="row" layout-align="start center" flex class="user">
+                            <i class="material-icons mr-10 fs-30 h-30">face</i>
+                            <div class="user-name fs-18">
+                                <span>{{selectedUser.name}}</span>
+                            </div>
+                        </div>
+                        <span class="pill" layout="row" layout-align="center center" ng-class="{'negative':selectedUser.status==='Expired','positive':selectedUser.status==='Confirmed', 'partial':selectedUser.status==='Pending'}">{{selectedUser.status}}</span>
+                    </div>
+                </div>
+                <md-divider class="mt-10 mb-20"></md-divider>
+                <div layout="column" flex>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-account-location"></md-icon> <span flex>User type</span>
+                                </div>
+                                <div flex class="text-capitalize">Member</div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-email"></md-icon> <span flex>Email</span>
+                                </div>
+                                <div flex class="">{{selectedUser.email}}</div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-domain"></md-icon> <span flex>Domain</span>
+                                </div>
+                                <div flex class="">{{selectedUser.company != null ? selectedUser.company : '-'}}</div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-google-maps"></md-icon> <span flex>Country</span>
+                                </div>
+                                <div flex class="">{{selectedUser.country != null ? selectedUser.country : '-'}}</div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row bordered" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-domain"></md-icon> <span flex>Created date</span>
+                                </div>
+                                <div flex class="">{{selectedUser.createdDate | date:"yyyy-MM-dd h:mm:ss a"}}</div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div layout="row" layout-align="start center" class="info-grid-row" flex>
+                                <div class="iconed-label" layout="row" layout-align="start center" flex="30">
+                                    <md-icon md-font-icon="icon-google-maps"></md-icon> <span flex>Updated date</span>
+                                </div>
+                                <div flex class="">{{selectedUser.updatedDate | date:"yyyy-MM-dd h:mm:ss a"}}</div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <md-card class="input-block-gen m-0">
+                <md-card-title>
+                    <div layout="row" layout-align="start center">
+                        <i class="material-icons">extension</i> <h3>Entitled apps</h3>
+                    </div>
+                </md-card-title>
+                <md-card-content>
+                    <div class="entitled-apps mr-15" ng-repeat="appName in entitledApps">
+                        <img ng-src="app/core/app_icons/{{appName | lowercase}}_app_icon.png"/> <span>{{appName}}</span>
+                    </div>
+                </md-card-content>
+            </md-card>
+        </md-content>
+
+    </div>
+</div>

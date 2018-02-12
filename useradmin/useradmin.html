@@ -1,0 +1,501 @@
+<div id="useradmin" class="page-layout carded left-sidenav" layout="row" ng-switch="vm.appInnerState">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center" layout="column" flex>
+        <div layout="column" layout-align="start start">
+            <div class="v-header" layout="column" flex fill-width>
+                <div class="title" layout="column" layout-align="center start">
+                    <div class="logo" layout="row" layout-align="start center">
+                        <span class="logo-icon">
+                          <img src="app/core/app_icons/useradmin_app_icon.png" alt=""/>
+                        </span>
+                        <span class="logo-text">User admin</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex md-whiteframe="8dp">
+
+            <!-- INVOICE VIEW PANE TOOLBAR -->
+            <div class="toolbar animate-fade-in-out no-shadow blue" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">
+                <div layout="row" layout-align="start center">
+                    <i class="material-icons mr-10 font-accent">{{activeSectionIcon}}</i> <h3>{{activeSectionTitle}}</h3>
+                </div>
+                <md-button class="md-icon-button"
+                           ng-click="vm.closeReadPane()"
+                           aria-label="Back" style="margin-right: -10px">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+            <!-- / INVOICE VIEW PANE TOOLBAR -->
+
+            <!-- CONTENT WRAPPER -->
+            <div class="content-wrapper" layout="row" flex>
+                <md-tabs md-selected="vm.activeInvoicePaneIndex" class="content-tabs" md-dynamic-height="{{vm.dynamicHeight}}" flex>
+                    <!-- INVOICE LIST PANE -->
+                    <md-tab>
+                        <md-tab-label>Useradmin listpane</md-tab-label>
+                        <md-tab-body>
+                            <div class="content invoice-list-pane"
+                                 ng-include="'app/main/useradmin/views/list/list-view.html'">
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                    <!-- / INVOICE LIST PANE -->
+
+                    <!-- INVOICE DISPLAY PANE -->
+                    <md-tab>
+                        <md-tab-label>Useradmin Display Pane</md-tab-label>
+                        <md-tab-body>
+                            <div class="content invoice-display-pane"
+                                 ng-include="'app/main/useradmin/views/read/read-view.html'" style="overflow: hidden;">
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                    <!-- / INVOICE DISPLAY PANE -->
+                </md-tabs>
+            </div>
+            <!-- / CONTENT WRAPPER -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+
+    <!-- CENTER -->
+    <!--<div ng-switch-when="add" class="center" layout="column" flex>-->
+        <!--<div class="content-wrapper" layout="row" flex>-->
+            <!--&lt;!&ndash; CONTENT CARD &ndash;&gt;-->
+            <!--<div class="content-card" layout="row" flex>-->
+
+                <!--<div class="main-container" flex ng-if="!inpageReadPaneEdit">-->
+
+                    <!--<div class="search-bar-wrap" ng-style="!showInpageReadpane ? { 'margin':'50px auto','width':'70%'} : { 'margin': '50px 30px','width':'auto' }">-->
+                        <!--<div layout="row" layout-align="center center" flex>-->
+                            <!--<form flex>-->
+                                <!--<input flex md-whiteframe="1dp"-->
+                                       <!--ng-model="vm.selectedEmailInvite" id="userInviteId"-->
+                                       <!--ng-disabled="userAppSelectEnabled"-->
+                                       <!--ng-keypress="($event.which === 13)?enterInviteUser(vm.selectedEmailInvite,$event):0"-->
+                                       <!--type="text" placeholder="Type the user's Email to Invite">-->
+                            <!--</form>-->
+                            <!--<md-button aria-label="Open demo menu" class="md-raised md-accent" ng-disabled="userinvited" ng-click="enterInviteUser(vm.selectedEmailInvite,$event)" style="top: -3px;">-->
+                                <!--invite-->
+                            <!--</md-button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!---->
+                    <!--<md-card flex class="input-block-gen" layout="row" style="max-width: 800px;" ng-if="userAppSelectEnabled" ng-style="!showInpageReadpane ? { 'margin':'0 auto'} : { 'margin': '10px' }">-->
+                        <!--<div flex class="inpage-listpane">-->
+                            <!--<md-card-title>-->
+                                <!--<div layout="row" layout-align="start center">-->
+                                    <!--<md-icon md-font-icon="icon-account-multiple"></md-icon> <h3>Select Apps for New User</h3>-->
+                                <!--</div>-->
+                            <!--</md-card-title>-->
+                            <!--<div>-->
+                                <!--<div class="subheaded-list-content" flex>-->
+                                    <!--<md-content ms-scroll>-->
+                                        <!--&lt;!&ndash;<md-progress-circular md-mode='indeterminate' md-diameter="150" style="position: absolute;right: 0;left: 0;top: 0;bottom: 0;margin: auto;z-index: 9999" ng-show="showGlobalProgress" style="height: 100%;"></md-progress-circular>&ndash;&gt;-->
+                                        <!--<div ng-repeat="app in allApps" ng-click="selectAppForInviteUser(app)" flex class="list-cust" layout-align="start center" layout="row">-->
+                                            <!--<div layout="row" layout-align="center center" flex>-->
+                                                <!--<div flex><input type="checkbox" ng-model="app.isSelected"><b>{{app.Name}}</b></div>-->
+                                                <!--&lt;!&ndash;<div flex><b>{{app.Name}}</b></div>&ndash;&gt;-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<md-button aria-label="Open demo menu" class="md-raised md-accent" ng-click="enterInviteUserProcess(vm.selectedEmailInvite,$event)" style="top: -3px;">-->
+                                            <!--Process>>-->
+                                        <!--</md-button>-->
+                                    <!--</md-content>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</md-card>-->
+
+                    <!--<md-card flex class="input-block-gen" layout="row" style="max-width: 800px;" ng-style="!showInpageReadpane ? { 'margin':'0 auto'} : { 'margin': '10px' }">-->
+                        <!--<div flex class="inpage-listpane">-->
+                            <!--<md-card-title>-->
+                                <!--<div layout="row" layout-align="start center">-->
+                                    <!--<md-icon md-font-icon="icon-account-multiple"></md-icon> <h3>Invited Users</h3>-->
+                                <!--</div>-->
+                            <!--</md-card-title>-->
+                            <!--<div>-->
+                                <!--<div class="subheaded-list-content" flex>-->
+                                    <!--<div class="subheader" layout="row" layout-align="start center" flex style="padding: 0 16px;">-->
+                                        <!--<div class="productName" layout="column" layout-align="center start" flex>-->
+                                            <!--<div layout="row">-->
+                                                <!--<span layout="column" layout-align="center center">Name</span>-->
+                                                <!--<div layout="column" layout="center center">-->
+                                                    <!--<md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'NAME')">-->
+                                                        <!--<md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>-->
+                                                        <!--<md-icon md-font-icon="icon-chevron-down"></md-icon>-->
+                                                    <!--</md-button>-->
+                                                    <!--<md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'NAME')">-->
+                                                        <!--<md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>-->
+                                                        <!--<md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>-->
+                                                    <!--</md-button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div class="productName" layout="column" layout-align="center start" flex>-->
+                                            <!--<div layout="row">-->
+                                                <!--<span layout="column" layout-align="center center">Email</span>-->
+                                                <!--<div layout="column" layout="center center">-->
+                                                    <!--<md-button ng-hide="showEmail" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('email',true,'EMAIL')">-->
+                                                        <!--<md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>-->
+                                                        <!--<md-icon md-font-icon="icon-chevron-down"></md-icon>-->
+                                                    <!--</md-button>-->
+                                                    <!--<md-button ng-show="showEmail" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('email',null,'EMAIL')">-->
+                                                        <!--<md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>-->
+                                                        <!--<md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>-->
+                                                    <!--</md-button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div flex="10" layout="row" layout-align="center center">Actions</div>-->
+                                    <!--</div>-->
+                                    <!--<md-content ms-scroll>-->
+                                        <!--<md-progress-circular md-mode='indeterminate' md-diameter="150" style="position: absolute;right: 0;left: 0;top: 0;bottom: 0;margin: auto;z-index: 9999" ng-show="showGlobalProgress" style="height: 100%;"></md-progress-circular>-->
+                                        <!--<div ng-repeat="owernuser in users | orderBy:'displayName' | filter:vm.selectedEmailInvite || undefined" flex ng-click="switchInfoPane('show', owernuser)" class="list-cust" layout-align="start center" layout="row" ng-if="owernuser.jobTitle!='admin'">-->
+                                            <!--<div layout="row" layout-align="center center" flex>-->
+                                                <!--<div flex><b>{{owernuser.displayName}}</b></div>-->
+                                                <!--<div flex>{{owernuser.signInNames[0].value}}</div>-->
+                                                <!--<div flex="10" layout="row" layout-align="center center">-->
+                                                    <!--<md-button ng-click="removeInviteUser(owernuser, $event)" class="md-icon-button">-->
+                                                        <!--<md-icon md-font-icon="icon-close-circle" class="md-warn"></md-icon>-->
+                                                    <!--</md-button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</md-content>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</md-card>-->
+                <!--</div>-->
+
+                <!--<div flex class="inpage-readpane" md-whiteframe="4dp" ng-if="showInpageReadpane">-->
+                    <!--<div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar">-->
+                        <!--<h3 class="group-sub-head" layout="row" layout-align="start center">{{selectedUser.name}}</h3>-->
+                        <!--<div layout="row">-->
+                            <!--<md-menu>-->
+                                <!--<md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
+                                    <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+                                    <!--<md-tooltip>Actions</md-tooltip>-->
+                                <!--</md-button>-->
+
+                                <!--<md-menu-content width="3">-->
+                                    <!--<md-menu-item>-->
+                                        <!--<md-button ng-disabled="inpageReadPaneEdit" aria-label="Delete" ng-click="editUser(selectedUser, $event)">-->
+                                            <!--<md-icon md-font-icon="icon-pencil"></md-icon>-->
+                                            <!--<span>Edit</span>-->
+                                        <!--</md-button>-->
+                                    <!--</md-menu-item>-->
+                                    <!--<md-menu-item>-->
+                                        <!--<md-button aria-label="Delete" ng-click="removeInviteUser(owernuser, $event)">-->
+                                            <!--<md-icon md-font-icon="icon-close-circle"></md-icon>-->
+                                            <!--<span>Delete</span>-->
+                                        <!--</md-button>-->
+                                    <!--</md-menu-item>-->
+                                    <!--&lt;!&ndash;<md-menu-item ng-if="inpageReadPaneEdit">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-button aria-label="Delete" ng-click="cancelEdit()">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<md-icon md-font-icon="icon-close"></md-icon>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<span>Cancel</span>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+                                <!--</md-menu-content>-->
+                            <!--</md-menu>-->
+                            <!--<md-button class="md-icon-button" ng-click="switchInfoPane('close')">-->
+                                <!--<md-icon md-font-icon="icon-close"></md-icon>-->
+                                <!--<md-tooltip>Close</md-tooltip>-->
+                            <!--</md-button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<md-content ms-scroll layout="column" class="inpage-readpane-body" ng-if="!inpageReadPaneEdit">-->
+                        <!--<div layout="row" layout-align="start center" style="height: 50px;">-->
+                            <!--<div layout="row" layout-align="start center" flex class="state-capsule">-->
+                                <!--<div layout="row">-->
+                                    <!--<span>Type</span>-->
+                                    <!--<span>Individual</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div layout="row">-->
+                            <!--<div flex>-->
+                                <!--<div layout="row" layout-align="start center" class="detail-row">-->
+                                    <!--<span><b>Name</b></span>-->
+                                    <!--<span>: {{selectedUser.name}}</span>-->
+                                <!--</div>-->
+                                <!--<div layout="row" layout-align="start center" class="detail-row">-->
+                                    <!--<span><b>Email</b></span>-->
+                                    <!--<span>: {{selectedUser.signInNames[0].value}}</span>-->
+                                <!--</div>-->
+                                <!--<div ng-if="showMoreUserInfo">-->
+                                    <!--<div layout="row" layout-align="start center" class="detail-row">-->
+                                        <!--<span><b>Joined date</b></span>-->
+                                        <!--<span>: 12-12-2012</span>-->
+                                    <!--</div>-->
+                                    <!--<div layout="row" layout-align="start center" class="detail-row">-->
+                                        <!--<span><b>Phone</b></span>-->
+                                        <!--<span>: phone</span>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div layout="row" layout-align="end end" class="more-chevron">-->
+                                    <!--<div layout="row" layout-align="start center">-->
+                                        <!--<md-button class="md-icon-button" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>-->
+                                    <!--</div>-->
+
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div layout="row" layout-align="space-between center" class="group-sub-head" style="margin-top: 0">-->
+                            <!--<b>Entitled Apps</b>-->
+                        <!--</div>-->
+
+                        <!--<div layout="row">-->
+                            <!--<div layout="column">-->
+                                <!--<div class="entitled-apps" ng-repeat="appName in entitledApps" layout="row" layout-align="start center">-->
+                                    <!--<img ng-src="app/core/app_icons/{{appName | lowercase}}_app_icon_black.png" alt=""/> <h1>{{appName}}</h1>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</md-content>-->
+
+                    <!--<md-content ms-scroll layout="column" class="inpage-readpane-body" ng-if="inpageReadPaneEdit" style="padding: 0 0 95px 0;">-->
+                        <!--<form name="vm.userAdminProfileForm" ng-submit="userAdminProfileSubmit()" id="userAdminProfileForm" novalidate>-->
+                            <!--&lt;!&ndash;CREATE NEW INVOICE _ CARDED=================================================&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-card flex class="input-block-gen">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-card-title>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div layout="row" layout-align="start center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-icon md-font-icon="icon-cog"></md-icon> <h3>General Details</h3>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-card-title>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-card-content>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div layout="row">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-input-container flex="30">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label>Type</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-select flex ng-required="true" ng-model="">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-option>Type 1</md-option>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-option>Type 2</md-option>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-select>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div flex="5"></div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-input-container flex="30">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label>Object ID</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="text"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div flex="5"></div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<md-input-container flex="30">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label>Source</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<input type="text"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-card-content>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</md-card>&ndash;&gt;-->
+
+                            <!--<md-card flex class="input-block-gen">-->
+                                <!--<md-card-title>-->
+                                    <!--<div layout="row" layout-align="start center">-->
+                                        <!--<md-icon md-font-icon="icon-account"></md-icon> <h3>Personal Details</h3>-->
+                                    <!--</div>-->
+                                <!--</md-card-title>-->
+                                <!--<md-card-content md-whiteframe="1dp">-->
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>First Name</label>-->
+                                            <!--<input ng-required="true" ng-model="content.givenName" ng-minlength="3" ng-maxlength="35" name="first_name" >-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.first_name.$error">-->
+                                                <!--<div ng-message="maxlength">First name cannot be longer than 35 characters</div>-->
+                                                <!--<div ng-message="minlength">First name cannot be shorter than 3 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Last Name</label>-->
+                                            <!--<input minlength="null" ng-maxlength="35" ng-model="content.surname" name="last_name">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.last_name.$error">-->
+                                                <!--<div ng-message="maxlength">Last name cannot be longer than 35 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Phone</label>-->
+                                            <!--<input ng-required="false" ng-model="content.mobilePhone" minlength="null" ng-maxlength="35" name="last_name">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.last_name.$error">-->
+                                                <!--<div ng-message="maxlength">Last name cannot be longer than 35 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Alternate Phone</label>-->
+                                            <!--<input ng-required="false" ng-model="content.mobilePhone2" minlength="null" ng-maxlength="35" name="alt_phone">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.alt_phone.$error">-->
+                                                <!--<div ng-message="maxlength">Alternate phone cannot be longer than 35 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Email</label>-->
+                                            <!--<input ng-required="false" ng-model="content.email" minlength="null" ng-maxlength="35" name="email">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.email.$error">-->
+                                                <!--<div ng-message="maxlength">Email cannot be longer than 35 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Alternate Email</label>-->
+                                            <!--<input ng-required="false" ng-model="content.email2" minlength="null" ng-maxlength="35" name="alt_email">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.alt_email.$error">-->
+                                                <!--<div ng-message="maxlength">Alternate email cannot be longer than 35 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+
+                                    <!--<div layout="row" layout-align="start center" class="group-sub-head">-->
+                                        <!--<md-input-container flex="30"><b>Profile Image</b></md-input-container>-->
+                                    <!--</div>-->
+
+                                    <!--<div layout="row" style="height: auto;">-->
+                                        <!--<div flex></div>-->
+                                        <!--<div>-->
+                                            <!--<div layout="column" layout-align="center center" class="product-img-cont">-->
+                                                <!--<div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
+                                                    <!--<md-icon md-font-icon="icon-image-filter"></md-icon>-->
+                                                    <!--<span>Browse an image for the profile</span>-->
+                                                    <!--<span class="img-size-msg">[Maximum size : 150px X 150px]</span>-->
+                                                <!--</div>-->
+                                                <!--<canvas flex height="200" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="150" crop-height="150" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>-->
+
+                                                <!--<div class="input-partial">-->
+                                                    <!--<md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>-->
+                                                    <!--<input type="file" id="profileImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--<div flex="5"></div>-->
+                                        <!--<div layout="column" layout-align="center center" class="product-preview">-->
+                                            <!--<span>Profile Preview</span>-->
+                                            <!--<div layout="column" layout-align="center center" md-whiteframe>-->
+                                                <!--<div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">-->
+                                                    <!--<md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet-->
+                                                <!--</div>-->
+                                                <!--<div ng-show="cropper.croppedImage!=null">-->
+                                                    <!--<img ng-src="{{cropper.croppedImage}}" />-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 150px X 150px]</label>-->
+                                        <!--</div>-->
+                                        <!--<div flex></div>-->
+                                    <!--</div>-->
+
+                                <!--</md-card-content>-->
+                            <!--</md-card>-->
+
+                            <!--<md-card flex class="input-block-gen">-->
+                                <!--<md-card-title>-->
+                                    <!--<div layout="row" layout-align="start center">-->
+                                        <!--<md-icon md-font-icon="icon-google-maps"></md-icon> <h3>Location Details</h3>-->
+                                    <!--</div>-->
+                                <!--</md-card-title>-->
+                                <!--<md-card-content>-->
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30" >-->
+                                            <!--<label>Address</label>-->
+                                            <!--<input ng-required="false" ng-model="content.officeLocation" minlength="null" md-maxlength="null" id="autocomplete3" onFocus="geolocate3()" onchange="clearaddress3()" name="bill_addr" ng-maxlength="200">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.bill_addr.$error">-->
+                                                <!--<div ng-message="maxlength">Address must be between  1-200 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>City</label>-->
+                                            <!--<input ng-required="false" ng-model="content.city" type="long_name" id="bill_city" name="bill_city" ng-maxlength="50">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.bill_city.$error">-->
+                                                <!--<div ng-message="maxlength">City must be between 1-50 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>State/Province</label>-->
+                                            <!--<input ng-required="false" ng-model="content.state" type="long_name" id="bill_state" name="bill_state" ng-maxlength="50">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.bill_state.$error">-->
+                                                <!--<div ng-message="maxlength">State/Province must be between 1-50 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>ZIP/Postal Code</label>-->
+                                            <!--<input ng-required="false" ng-model="content.postalCode" minlength="null" md-maxlength="null" type="short_name" id="postal_code3" name="bill_zip_post" ng-pattern="" ng-maxlength="20">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.bill_zip_post.$error">-->
+                                                <!--<div ng-message="maxlength">ZIP/Postal must be between 1-20 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+
+                                        <!--<div flex="5"></div>-->
+
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Country/Region</label>-->
+                                            <!--<input ng-required="false" ng-model="content.country" minlength="null" md-maxlength="null" type="long_name" id="country3" name="bill_country" ng-pattern="" ng-maxlength="20">-->
+                                            <!--<div ng-messages="vm.userAdminProfileForm.bill_country.$error">-->
+                                                <!--<div ng-message="maxlength">Country/Region must be between 1-20 characters</div>-->
+                                            <!--</div>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+
+                                <!--</md-card-content>-->
+                            <!--</md-card>-->
+
+                            <!--<md-card flex class="input-block-gen">-->
+                                <!--<md-card-title>-->
+                                    <!--<div layout="row" layout-align="start center">-->
+                                        <!--<md-icon md-font-icon="icon-cog"></md-icon> <h3>Settings</h3>-->
+                                    <!--</div>-->
+                                <!--</md-card-title>-->
+                                <!--<md-card-content>-->
+                                    <!--<div layout="row" layout-align="space-between center" class="group-sub-head" flex="30">-->
+                                        <!--<div style="color: #555;">Block Sign in</div>-->
+                                        <!--<md-switch ng-model="blockSignIn" aria-label="Switch 1" ng-change="checkBlockSignStat()">{{blockSignInStat}}</md-switch>-->
+                                    <!--</div>-->
+                                <!--</md-card-content>-->
+                            <!--</md-card>-->
+                            <!--&lt;!&ndash;CREATE NEW INVOICE _ CARDED=================================================&ndash;&gt;-->
+                        <!--</form>-->
+                    <!--</md-content>-->
+                    <!--<div layout="row" layout-align="end center" md-whiteframe="8dp" style="position:absolute;bottom: 0;width: 100%;background: #ffffff;z-index: 9999" ng-if="inpageReadPaneEdit">-->
+                        <!--<div layout="row" class="layout-row">-->
+                            <!--<md-button ng-click="clearForm();">Clear</md-button>-->
+                            <!--<md-button ng-disabled="vm.submitted" type="submit" class="md-raised md-warn" form="userAdminProfileForm">Submit</md-button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--&lt;!&ndash; / CONTENT CARD &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+    <!-- / CENTER -->
+
+</div>

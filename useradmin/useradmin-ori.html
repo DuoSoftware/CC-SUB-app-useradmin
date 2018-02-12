@@ -1,0 +1,953 @@
+<meta name="modifiedBy" content="GihanHerath">
+<meta name="modifiedDate" content="09-11-2016">
+<meta name="version" content="6.0.0.4">
+<meta name="app" content="useradmin">
+<meta name="view" content="useradmin.html">
+
+<div id="useradmin" class="page-layout carded left-sidenav" layout="row" ng-switch="vm.appInnerState">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg md-accent-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- SIDENAV -->
+    <md-sidenav class="sidenav" md-is-locked-open="$mdMedia('gt-md')" md-component-id="main-sidenav"
+                ng-include="'app/main/useradmin/sidenavs/main/main-sidenav.html'" ms-scroll ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / SIDENAV -->
+
+    <!-- CENTER -->
+    <div ng-switch-when="default" class="center" layout="column" flex>
+        <!-- CONTENT HEADER -->
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" layout="column" flex>
+
+            <!-- INVOICE VIEW PANE TOOLBAR -->
+            <div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">
+                <md-button class="md-icon-button"
+                           ng-click="vm.closeReadPane()"
+                           aria-label="Back">
+                    <md-icon md-font-icon="icon-keyboard-backspace"></md-icon>
+                </md-button>
+            </div>
+            <!-- / INVOICE VIEW PANE TOOLBAR -->
+
+             <!--CONTENT TOOLBAR -->
+            <!--<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 0">-->
+
+                <!--<div layout="row" layout-align="start center">-->
+                    <!--<md-checkbox class="no-label" aria-label="{{vm.allChecked?'Uncheck All':'Check All'}}"-->
+                                 <!--ng-checked="vm.allChecked" ng-click="vm.checkAll()"></md-checkbox>-->
+                    <!--<md-menu>-->
+                        <!--<md-button class="md-icon-button"-->
+                                   <!--ng-click="$mdOpenMenu($event)"-->
+                                   <!--aria-label="Filters">-->
+                            <!--<md-icon md-font-icon="icon-menu-down"></md-icon>-->
+                        <!--</md-button>-->
+                        <!--<md-menu-content width="3">-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="All">-->
+                                    <!--All-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="None">None-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Starred">Starred-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Unstarred">Unstarred-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                        <!--</md-menu-content>-->
+                    <!--</md-menu>-->
+
+                    <!--<div class="divider-vertical" hide show-gt-sm></div>-->
+
+                    <!--<md-button class="md-icon-button" aria-label="Archive" hide show-gt-sm>-->
+                        <!--<md-icon md-font-icon="icon-archive"></md-icon>-->
+                        <!--<md-tooltip><span>Archive</span></md-tooltip>-->
+                    <!--</md-button>-->
+
+                    <!--<md-button class="md-icon-button" aria-label="Clear" hide show-gt-sm>-->
+                        <!--<md-icon md-font-icon="icon-alert-octagon"></md-icon>-->
+                        <!--<md-tooltip><span>Clear</span></md-tooltip>-->
+                    <!--</md-button>-->
+
+                    <!--<md-button class="md-icon-button" aria-label="Delete" hide show-gt-sm>-->
+                        <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                        <!--<md-tooltip><span>Delete</span></md-tooltip>-->
+                    <!--</md-button>-->
+
+
+                    <!--<md-menu hide-gt-sm>-->
+                        <!--<md-button class="md-icon-button"-->
+                                   <!--ng-click="$mdOpenMenu($event)">-->
+                            <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+                        <!--</md-button>-->
+                        <!--<md-menu-content width="3">-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Archive">-->
+                                    <!--<md-icon md-font-icon="icon-archive"></md-icon>-->
+                                    <!--<span>Archive</span>-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Clear">-->
+                                    <!--<md-icon md-font-icon="icon-alert-octagon"></md-icon>-->
+                                    <!--<span>Clear</span>-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                            <!--<md-menu-item>-->
+                                <!--<md-button aria-label="Delete">-->
+                                    <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                                    <!--<span>Delete</span>-->
+                                <!--</md-button>-->
+                            <!--</md-menu-item>-->
+                        <!--</md-menu-content>-->
+                    <!--</md-menu>-->
+                <!--</div>-->
+
+                <!--<div layout="row" layout-align="start center">-->
+                    <!--<span class="page-info" hide-sm>1 - 100 of 980</span>-->
+
+                    <!--<md-button class="md-icon-button arrow" aria-label="Previous">-->
+                        <!--<md-icon md-font-icon="icon-chevron-left"></md-icon>-->
+                        <!--<md-tooltip><span>Previous</span></md-tooltip>-->
+                    <!--</md-button>-->
+
+                    <!--<md-button class="md-icon-button arrow" aria-label="Next">-->
+                        <!--<md-icon md-font-icon="icon-chevron-right"></md-icon>-->
+                        <!--<md-tooltip><span>Next</span></md-tooltip>-->
+                    <!--</md-button>-->
+                <!--</div>-->
+            <!--</div>-->
+             <!--/ CONTENT TOOLBAR -->
+
+            <!-- CONTENT WRAPPER -->
+            <div class="content-wrapper" layout="row" flex>
+                <md-tabs md-selected="vm.activeInvoicePaneIndex" class="invoice-tabs" md-dynamic-height="{{vm.dynamicHeight}}" flex>
+                    <!-- INVOICE LIST PANE -->
+                    <md-tab>
+                        <md-tab-label>UserAdmin List Pane</md-tab-label>
+                        <md-tab-body>
+                            <div class="content invoice-list-pane"
+                                 ng-include="'app/main/useradmin/views/list/list-view.html'" ms-scroll>
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                    <!-- / INVOICE LIST PANE -->
+
+                    <!-- INVOICE DISPLAY PANE -->
+                    <md-tab>
+                        <md-tab-label>UserAdmin Display Pane</md-tab-label>
+                        <md-tab-body>
+                            <div class="content invoice-display-pane"
+                                 ng-include="'app/main/useradmin/views/read/read-view.html'" ms-scroll>
+                            </div>
+                        </md-tab-body>
+                    </md-tab>
+                    <!-- / INVOICE DISPLAY PANE -->
+                </md-tabs>
+            </div>
+            <!-- / CONTENT WRAPPER -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+
+    <!-- CENTER -->
+    <div ng-switch-when="add" class="center" layout="column" flex>
+        <div class="content-wrapper" layout="row" flex>
+            <!-- CONTENT CARD -->
+            <div class="content-card" layout="row" flex>
+
+                <!-- INVOICE VIEW PANE TOOLBAR -->
+                <!--<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 1">-->
+                <!--<md-button class="md-icon-button"-->
+                <!--ng-click="vm.closeReadPane()"-->
+                <!--aria-label="Back">-->
+                <!--<md-icon md-font-icon="icon-keyboard-backspace"></md-icon>-->
+                <!--</md-button>-->
+                <!--</div>-->
+                <!-- / INVOICE VIEW PANE TOOLBAR -->
+
+                <!-- CONTENT TOOLBAR -->
+                <!--<div class="toolbar" layout="row" layout-align="space-between center" ng-if="vm.activeInvoicePaneIndex === 0">-->
+
+                <!--<div layout="row" layout-align="start center">-->
+                <!--<md-checkbox class="no-label" aria-label="{{vm.allChecked?'Uncheck All':'Check All'}}"-->
+                <!--ng-checked="vm.allChecked" ng-click="vm.checkAll()"></md-checkbox>-->
+                <!--<md-menu>-->
+                <!--<md-button class="md-icon-button"-->
+                <!--ng-click="$mdOpenMenu($event)"-->
+                <!--aria-label="Filters">-->
+                <!--<md-icon md-font-icon="icon-menu-down"></md-icon>-->
+                <!--</md-button>-->
+                <!--<md-menu-content width="3">-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="All">-->
+                <!--All-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="None">None-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="Starred">Starred-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="Unstarred">Unstarred-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--</md-menu-content>-->
+                <!--</md-menu>-->
+
+                <!--<div class="divider-vertical" hide show-gt-sm></div>-->
+
+                <!--<md-button class="md-icon-button" aria-label="Archive" hide show-gt-sm>-->
+                <!--<md-icon md-font-icon="icon-archive"></md-icon>-->
+                <!--<md-tooltip><span>Archive</span></md-tooltip>-->
+                <!--</md-button>-->
+
+                <!--<md-button class="md-icon-button" aria-label="Clear" hide show-gt-sm>-->
+                <!--<md-icon md-font-icon="icon-alert-octagon"></md-icon>-->
+                <!--<md-tooltip><span>Clear</span></md-tooltip>-->
+                <!--</md-button>-->
+
+                <!--<md-button class="md-icon-button" aria-label="Delete" hide show-gt-sm>-->
+                <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                <!--<md-tooltip><span>Delete</span></md-tooltip>-->
+                <!--</md-button>-->
+
+
+                <!--<md-menu hide-gt-sm>-->
+                <!--<md-button class="md-icon-button"-->
+                <!--ng-click="$mdOpenMenu($event)">-->
+                <!--<md-icon md-font-icon="icon-dots-vertical"></md-icon>-->
+                <!--</md-button>-->
+                <!--<md-menu-content width="3">-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="Archive">-->
+                <!--<md-icon md-font-icon="icon-archive"></md-icon>-->
+                <!--<span>Archive</span>-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="Clear">-->
+                <!--<md-icon md-font-icon="icon-alert-octagon"></md-icon>-->
+                <!--<span>Clear</span>-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--<md-menu-item>-->
+                <!--<md-button aria-label="Delete">-->
+                <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                <!--<span>Delete</span>-->
+                <!--</md-button>-->
+                <!--</md-menu-item>-->
+                <!--</md-menu-content>-->
+                <!--</md-menu>-->
+                <!--</div>-->
+
+                <!--<div layout="row" layout-align="start center">-->
+                <!--<span class="page-info" hide-sm>1 - 100 of 980</span>-->
+
+                <!--<md-button class="md-icon-button arrow" aria-label="Previous">-->
+                <!--<md-icon md-font-icon="icon-chevron-left"></md-icon>-->
+                <!--<md-tooltip><span>Previous</span></md-tooltip>-->
+                <!--</md-button>-->
+
+                <!--<md-button class="md-icon-button arrow" aria-label="Next">-->
+                <!--<md-icon md-font-icon="icon-chevron-right"></md-icon>-->
+                <!--<md-tooltip><span>Next</span></md-tooltip>-->
+                <!--</md-button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--/ CONTENT TOOLBAR -->
+                <!-- CONTENT WRAPPER -->
+
+                <div class="main-container" flex ng-if="!inpageReadPaneEdit">
+
+                    <div class="search-bar-wrap" ng-style="!showInpageReadpane ? { 'margin':'50px auto','width':'70%'} : { 'margin': '50px 30px','width':'auto' }">
+                        <div layout="row" layout-align="center center" flex>
+                            <form flex>
+                                <input flex md-whiteframe="1dp"
+                                       ng-model="vm.selectedEmailInvite" id="userInviteId"
+                                       ng-disabled="userAppSelectEnabled"
+                                       ng-keypress="($event.which === 13)?enterInviteUser(vm.selectedEmailInvite,$event):0"
+                                       type="text" placeholder="Type the user's Email to Invite">
+                            </form>
+                            <md-button aria-label="Open demo menu" class="md-raised md-accent" ng-disabled="userinvited" ng-click="enterInviteUser(vm.selectedEmailInvite,$event)" style="top: -3px;">
+                                invite
+                            </md-button>
+                        </div>
+                    </div>
+                    <!--<md-content ms-scroll style="width: 80%;" flex>-->
+                    <!--<div class="user-info-wrap" layout="row" layout-align="center center" ng-repeat="owernuser in users | orderBy:'Name' | filter:vm.selectedEmailInvite || undefined">-->
+                    <!--<md-input-container layout="row" layout-align="center center" class="name-badge">-->
+                    <!--<img src="{{getCatLetter(owernuser.name)}}"/>-->
+                    <!--</md-input-container>-->
+                    <!--<md-input-container flex layout="row" layout-align="center center">-->
+                    <!--<label>Name</label>-->
+                    <!--<input type="" ng-model="owernuser.name" style="pointer-events: none;border: none;"/>-->
+                    <!--</md-input-container>-->
+                    <!--<md-input-container flex layout="row" layout-align="center center">-->
+                    <!--<label>Email</label>-->
+                    <!--<input type="" ng-model="owernuser.email" style="pointer-events: none;border: none;"/>-->
+                    <!--</md-input-container>-->
+                    <!--<md-button class="md-icon-button" ng-click="removeInviteUser(owernuser, $event)">-->
+                    <!--<md-icon md-font-icon="icon-delete"></md-icon>-->
+                    <!--<md-tooltip>Remove User</md-tooltip>-->
+                    <!--</md-button>-->
+                    <!--</div>-->
+                    <!--</md-content>-->
+                    <md-card flex class="input-block-gen" layout="row" style="max-width: 800px;" ng-if="userAppSelectEnabled" ng-style="!showInpageReadpane ? { 'margin':'0 auto'} : { 'margin': '10px' }">
+                      <div flex class="inpage-listpane">
+                        <md-card-title>
+                          <div layout="row" layout-align="start center">
+                            <md-icon md-font-icon="icon-account-multiple"></md-icon> <h3>Select Apps for New User</h3>
+                          </div>
+                        </md-card-title>
+                        <div>
+                          <div class="subheaded-list-content" flex>
+                            <md-content ms-scroll>
+                              <!--<md-progress-circular md-mode='indeterminate' md-diameter="150" style="position: absolute;right: 0;left: 0;top: 0;bottom: 0;margin: auto;z-index: 9999" ng-show="showGlobalProgress" style="height: 100%;"></md-progress-circular>-->
+                              <div ng-repeat="app in allApps" ng-click="selectAppForInviteUser(app)" flex class="list-cust" layout-align="start center" layout="row">
+                                <div layout="row" layout-align="center center" flex>
+                                  <div flex><input type="checkbox" ng-model="app.isSelected"><b>{{app.Name}}</b></div>
+                                  <!--<div flex><b>{{app.Name}}</b></div>-->
+                                </div>
+                              </div>
+                              <md-button aria-label="Open demo menu" class="md-raised md-accent" ng-click="enterInviteUserProcess(vm.selectedEmailInvite,$event)" style="top: -3px;">
+                                Process>>
+                              </md-button>
+                            </md-content>
+                          </div>
+                        </div>
+                      </div>
+                    </md-card>
+
+                    <md-card flex class="input-block-gen" layout="row" style="max-width: 800px;" ng-style="!showInpageReadpane ? { 'margin':'0 auto'} : { 'margin': '10px' }">
+                        <div flex class="inpage-listpane">
+                            <md-card-title>
+                                <div layout="row" layout-align="start center">
+                                    <md-icon md-font-icon="icon-account-multiple"></md-icon> <h3>Invited Users</h3>
+                                </div>
+                            </md-card-title>
+                            <div>
+                                <div class="subheaded-list-content" flex>
+                                    <div class="subheader" layout="row" layout-align="start center" flex style="padding: 0 16px;">
+                                        <div class="productName" layout="column" layout-align="center start" flex>
+                                            <div layout="row">
+                                                <span layout="column" layout-align="center center">Name</span>
+                                                <div layout="column" layout="center center">
+                                                    <md-button ng-hide="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',true,'NAME')">
+                                                        <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                                                        <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                                                    </md-button>
+                                                    <md-button ng-show="showName" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('name',null,'NAME')">
+                                                        <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                                                        <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                                                    </md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="productName" layout="column" layout-align="center start" flex>
+                                            <div layout="row">
+                                                <span layout="column" layout-align="center center">Email</span>
+                                                <div layout="column" layout="center center">
+                                                    <md-button ng-hide="showEmail" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('email',true,'EMAIL')">
+                                                        <md-icon class="sort_btn_icon merged" md-font-icon="icon-chevron-up"></md-icon>
+                                                        <md-icon md-font-icon="icon-chevron-down"></md-icon>
+                                                    </md-button>
+                                                    <md-button ng-show="showEmail" class="sort_btn md-icon-button" layout="column" layout="center center" ng-click="sortBy('email',null,'EMAIL')">
+                                                        <md-icon ng-if="reverse==true" class="sort_btn_icon" md-font-icon="icon-chevron-up"></md-icon>
+                                                        <md-icon ng-if="reverse==false" md-font-icon="icon-chevron-down"></md-icon>
+                                                    </md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div flex="10" layout="row" layout-align="center center">Actions</div>
+                                    </div>
+                                    <md-content ms-scroll>
+                                        <md-progress-circular md-mode='indeterminate' md-diameter="150" style="position: absolute;right: 0;left: 0;top: 0;bottom: 0;margin: auto;z-index: 9999" ng-show="showGlobalProgress" style="height: 100%;"></md-progress-circular>
+                                        <div ng-repeat="owernuser in users | orderBy:'displayName' | filter:vm.selectedEmailInvite || undefined" flex ng-click="switchInfoPane('show', owernuser)" class="list-cust" layout-align="start center" layout="row" ng-if="owernuser.jobTitle!='admin'">
+                                            <div layout="row" layout-align="center center" flex>
+                                                <div flex><b>{{owernuser.displayName}}</b></div>
+                                                <div flex>{{owernuser.signInNames[0].value}}</div>
+                                                <div flex="10" layout="row" layout-align="center center">
+                                                    <md-button ng-click="removeInviteUser(owernuser, $event)" class="md-icon-button">
+                                                        <md-icon md-font-icon="icon-close-circle" class="md-warn"></md-icon>
+                                                    </md-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                </div>
+                            </div>
+                        </div>
+                    </md-card>
+                </div>
+
+
+                <div flex class="inpage-readpane" md-whiteframe="4dp" ng-if="showInpageReadpane">
+                    <div layout="row" layout-align="space-between center" class="inpage-readpane-toolbar">
+                        <h3 class="group-sub-head" layout="row" layout-align="start center">{{selectedUser.name}}</h3>
+                        <div layout="row">
+                            <md-menu>
+                                <md-button aria-label="More" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                    <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+                                    <md-tooltip>Actions</md-tooltip>
+                                </md-button>
+
+                                <md-menu-content width="3">
+                                    <md-menu-item>
+                                        <md-button ng-disabled="inpageReadPaneEdit" aria-label="Delete" ng-click="editUser(selectedUser, $event)">
+                                            <md-icon md-font-icon="icon-pencil"></md-icon>
+                                            <span>Edit</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button aria-label="Delete" ng-click="removeInviteUser(owernuser, $event)">
+                                            <md-icon md-font-icon="icon-close-circle"></md-icon>
+                                            <span>Delete</span>
+                                        </md-button>
+                                    </md-menu-item>
+                                    <!--<md-menu-item ng-if="inpageReadPaneEdit">-->
+                                        <!--<md-button aria-label="Delete" ng-click="cancelEdit()">-->
+                                            <!--<md-icon md-font-icon="icon-close"></md-icon>-->
+                                            <!--<span>Cancel</span>-->
+                                        <!--</md-button>-->
+                                    <!--</md-menu-item>-->
+                                </md-menu-content>
+                            </md-menu>
+                            <md-button class="md-icon-button" ng-click="switchInfoPane('close')">
+                                <md-icon md-font-icon="icon-close"></md-icon>
+                                <md-tooltip>Close</md-tooltip>
+                            </md-button>
+                        </div>
+                    </div>
+
+                    <md-content ms-scroll layout="column" class="inpage-readpane-body" ng-if="!inpageReadPaneEdit">
+                        <div layout="row" layout-align="start center" style="height: 50px;">
+                            <div layout="row" layout-align="start center" flex class="state-capsule">
+                                <div layout="row">
+                                    <span>Type</span>
+                                    <span>Individual</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div layout="row">
+                            <div flex>
+                                <div layout="row" layout-align="start center" class="detail-row">
+                                    <span><b>Name</b></span>
+                                    <span>: {{selectedUser.name}}</span>
+                                </div>
+                                <div layout="row" layout-align="start center" class="detail-row">
+                                    <span><b>Email</b></span>
+                                    <span>: {{selectedUser.signInNames[0].value}}</span>
+                                </div>
+                                <div ng-if="showMoreUserInfo">
+                                    <div layout="row" layout-align="start center" class="detail-row">
+                                        <span><b>Joined date</b></span>
+                                        <span>: 12-12-2012</span>
+                                    </div>
+                                    <div layout="row" layout-align="start center" class="detail-row">
+                                        <span><b>Phone</b></span>
+                                        <span>: phone</span>
+                                    </div>
+                                </div>
+                                <div layout="row" layout-align="end end" class="more-chevron">
+                                    <div layout="row" layout-align="start center">
+                                        <md-button class="md-icon-button" ng-click="contentExpandHandler()"><md-icon md-font-icon="icon-chevron-down" ng-if="!showMoreUserInfo"></md-icon><md-icon md-font-icon="icon-chevron-up" ng-if="showMoreUserInfo"></md-icon> </md-button><label ng-if="showMoreUserInfo">Less</label><label ng-if="!showMoreUserInfo">More</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="space-between center" class="group-sub-head" style="margin-top: 0">
+                            <b>Entitled Apps</b>
+                        </div>
+
+                        <div layout="row">
+                            <div layout="column">
+                                <div class="entitled-apps" ng-repeat="appName in entitledApps" layout="row" layout-align="start center">
+                                    <img ng-src="app/core/app_icons/{{appName | lowercase}}_app_icon_black.png" alt=""/> <h1>{{appName}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </md-content>
+
+                    <md-content ms-scroll layout="column" class="inpage-readpane-body" ng-if="inpageReadPaneEdit" style="padding: 0 0 95px 0;">
+                        <form name="vm.userAdminProfileForm" ng-submit="userAdminProfileSubmit()" id="userAdminProfileForm" novalidate>
+                            <!--CREATE NEW INVOICE _ CARDED=================================================-->
+                            <!--<md-card flex class="input-block-gen">-->
+                                <!--<md-card-title>-->
+                                    <!--<div layout="row" layout-align="start center">-->
+                                        <!--<md-icon md-font-icon="icon-cog"></md-icon> <h3>General Details</h3>-->
+                                    <!--</div>-->
+                                <!--</md-card-title>-->
+                                <!--<md-card-content>-->
+                                    <!--<div layout="row">-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Type</label>-->
+                                            <!--<md-select flex ng-required="true" ng-model="">-->
+                                                <!--<md-option>Type 1</md-option>-->
+                                                <!--<md-option>Type 2</md-option>-->
+                                            <!--</md-select>-->
+                                        <!--</md-input-container>-->
+                                        <!--<div flex="5"></div>-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Object ID</label>-->
+                                            <!--<input type="text"/>-->
+                                        <!--</md-input-container>-->
+                                        <!--<div flex="5"></div>-->
+                                        <!--<md-input-container flex="30">-->
+                                            <!--<label>Source</label>-->
+                                            <!--<input type="text"/>-->
+                                        <!--</md-input-container>-->
+                                    <!--</div>-->
+                                <!--</md-card-content>-->
+                            <!--</md-card>-->
+
+                            <md-card flex class="input-block-gen">
+                                <md-card-title>
+                                    <div layout="row" layout-align="start center">
+                                        <md-icon md-font-icon="icon-account"></md-icon> <h3>Personal Details</h3>
+                                    </div>
+                                </md-card-title>
+                                <md-card-content md-whiteframe="1dp">
+                                    <div layout="row">
+                                        <md-input-container flex="30">
+                                            <label>First Name</label>
+                                            <input ng-required="true" ng-model="content.givenName" ng-minlength="3" ng-maxlength="35" name="first_name" >
+                                            <div ng-messages="vm.userAdminProfileForm.first_name.$error">
+                                                <div ng-message="maxlength">First name cannot be longer than 35 characters</div>
+                                                <div ng-message="minlength">First name cannot be shorter than 3 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>Last Name</label>
+                                            <input minlength="null" ng-maxlength="35" ng-model="content.surname" name="last_name">
+                                            <div ng-messages="vm.userAdminProfileForm.last_name.$error">
+                                                <div ng-message="maxlength">Last name cannot be longer than 35 characters</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div layout="row">
+                                        <md-input-container flex="30">
+                                            <label>Phone</label>
+                                            <input ng-required="false" ng-model="content.mobilePhone" minlength="null" ng-maxlength="35" name="last_name">
+                                            <div ng-messages="vm.userAdminProfileForm.last_name.$error">
+                                                <div ng-message="maxlength">Last name cannot be longer than 35 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>Alternate Phone</label>
+                                            <input ng-required="false" ng-model="content.mobilePhone2" minlength="null" ng-maxlength="35" name="alt_phone">
+                                            <div ng-messages="vm.userAdminProfileForm.alt_phone.$error">
+                                                <div ng-message="maxlength">Alternate phone cannot be longer than 35 characters</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div layout="row">
+                                        <md-input-container flex="30">
+                                            <label>Email</label>
+                                            <input ng-required="false" ng-model="content.email" minlength="null" ng-maxlength="35" name="email">
+                                            <div ng-messages="vm.userAdminProfileForm.email.$error">
+                                                <div ng-message="maxlength">Email cannot be longer than 35 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>Alternate Email</label>
+                                            <input ng-required="false" ng-model="content.email2" minlength="null" ng-maxlength="35" name="alt_email">
+                                            <div ng-messages="vm.userAdminProfileForm.alt_email.$error">
+                                                <div ng-message="maxlength">Alternate email cannot be longer than 35 characters</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div layout="row" layout-align="start center" class="group-sub-head">
+                                        <md-input-container flex="30"><b>Profile Image</b></md-input-container>
+                                    </div>
+
+                                    <div layout="row" style="height: auto;">
+                                        <div flex></div>
+                                        <div>
+                                            <div layout="column" layout-align="center center" class="product-img-cont">
+                                                <div layout="column" layout-align="center center" class="img-up-invitation" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
+                                                    <md-icon md-font-icon="icon-image-filter"></md-icon>
+                                                    <span>Browse an image for the profile</span>
+                                                    <span class="img-size-msg">[Maximum size : 150px X 150px]</span>
+                                                </div>
+                                                <canvas flex height="200" id="canvas" image-cropper image="cropper.sourceImage" cropped-image="cropper.croppedImage" crop-width="150" crop-height="150" keep-aspect="true" touch-radius="30" crop-area-bounds="bounds"></canvas>
+
+                                                <div class="input-partial">
+                                                    <md-button class="md-raised md-accent" ng-click="triggerImgInput($event)">Browse</md-button>
+                                                    <input type="file" id="profileImageInput" img-cropper-fileread image="cropper.sourceImage" style="display:none" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div flex="5"></div>
+                                        <div layout="column" layout-align="center center" class="product-preview">
+                                            <span>Profile Preview</span>
+                                            <div layout="column" layout-align="center center" md-whiteframe>
+                                                <div layout="row" layout-align="center center" class="msg" ng-if="cropper.croppedImage=='' || cropper.croppedImage==null">
+                                                    <md-icon md-font-icon="icon-information-outline"></md-icon> No image is selected yet
+                                                </div>
+                                                <div ng-show="cropper.croppedImage!=null">
+                                                    <img ng-src="{{cropper.croppedImage}}" />
+                                                </div>
+                                            </div>
+                                            <label ng-show="cropper.croppedImage!=null" class="img-size-msg">[Image size : 150px X 150px]</label>
+                                        </div>
+                                        <div flex></div>
+                                    </div>
+
+                                </md-card-content>
+                            </md-card>
+
+                            <md-card flex class="input-block-gen">
+                                <md-card-title>
+                                    <div layout="row" layout-align="start center">
+                                        <md-icon md-font-icon="icon-google-maps"></md-icon> <h3>Location Details</h3>
+                                    </div>
+                                </md-card-title>
+                                <md-card-content>
+                                    <div layout="row">
+                                        <md-input-container flex="30" >
+                                            <label>Address</label>
+                                            <input ng-required="false" ng-model="content.officeLocation" minlength="null" md-maxlength="null" id="autocomplete3" onFocus="geolocate3()" onchange="clearaddress3()" name="bill_addr" ng-maxlength="200">
+                                            <div ng-messages="vm.userAdminProfileForm.bill_addr.$error">
+                                                <div ng-message="maxlength">Address must be between  1-200 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>City</label>
+                                            <input ng-required="false" ng-model="content.city" type="long_name" id="bill_city" name="bill_city" ng-maxlength="50">
+                                            <div ng-messages="vm.userAdminProfileForm.bill_city.$error">
+                                                <div ng-message="maxlength">City must be between 1-50 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>State/Province</label>
+                                            <input ng-required="false" ng-model="content.state" type="long_name" id="bill_state" name="bill_state" ng-maxlength="50">
+                                            <div ng-messages="vm.userAdminProfileForm.bill_state.$error">
+                                                <div ng-message="maxlength">State/Province must be between 1-50 characters</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                    <div layout="row">
+                                        <md-input-container flex="30">
+                                            <label>ZIP/Postal Code</label>
+                                            <input ng-required="false" ng-model="content.postalCode" minlength="null" md-maxlength="null" type="short_name" id="postal_code3" name="bill_zip_post" ng-pattern="" ng-maxlength="20">
+                                            <div ng-messages="vm.userAdminProfileForm.bill_zip_post.$error">
+                                                <div ng-message="maxlength">ZIP/Postal must be between 1-20 characters</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div flex="5"></div>
+
+                                        <md-input-container flex="30">
+                                            <label>Country/Region</label>
+                                            <input ng-required="false" ng-model="content.country" minlength="null" md-maxlength="null" type="long_name" id="country3" name="bill_country" ng-pattern="" ng-maxlength="20">
+                                            <div ng-messages="vm.userAdminProfileForm.bill_country.$error">
+                                                <div ng-message="maxlength">Country/Region must be between 1-20 characters</div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+
+                                </md-card-content>
+                            </md-card>
+
+                            <md-card flex class="input-block-gen">
+                                <md-card-title>
+                                    <div layout="row" layout-align="start center">
+                                        <md-icon md-font-icon="icon-cog"></md-icon> <h3>Settings</h3>
+                                    </div>
+                                </md-card-title>
+                                <md-card-content>
+                                    <div layout="row" layout-align="space-between center" class="group-sub-head" flex="30">
+                                        <div style="color: #555;">Block Sign in</div>
+                                        <md-switch ng-model="blockSignIn" aria-label="Switch 1" ng-change="checkBlockSignStat()">{{blockSignInStat}}</md-switch>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                            <!--CREATE NEW INVOICE _ CARDED=================================================-->
+                        </form>
+                    </md-content>
+                    <div layout="row" layout-align="end center" md-whiteframe="8dp" style="position:absolute;bottom: 0;width: 100%;background: #ffffff;z-index: 9999" ng-if="inpageReadPaneEdit">
+                        <div layout="row" class="layout-row">
+                            <md-button ng-click="clearForm();">Clear</md-button>
+                            <md-button ng-disabled="vm.submitted" type="submit" class="md-raised md-warn" form="userAdminProfileForm">Submit</md-button>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--<div flex>-->
+                <!--<div layout="row" flex="70" class="user-search">-->
+                <!--<form>-->
+                <!--&lt;!&ndash;<md-autocomplete flex&ndash;&gt;-->
+                <!--&lt;!&ndash;md-input-id="userInviteId"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="useradmin-autocomp"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-input-name="autocompleteField"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-keypress="($event.which === 13)?enterInviteUser(searchText,$event):0"&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-disabled="isDisabled"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-no-cache="noCache"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-selected-item="selectedItem"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-search-text-change="searchTextChange(searchText)"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-search-text="searchText"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-selected-item-change="selectedItemChange(item)"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-items="item in querySearch(searchText)"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-item-text="item.display"&ndash;&gt;-->
+                <!--&lt;!&ndash;md-min-length="0"&ndash;&gt;-->
+                <!--&lt;!&ndash;placeholder="Type the user's Email to Invite">&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-autocomplete>&ndash;&gt;-->
+                <!--<input flex md-whiteframe="2dp"-->
+                <!--ng-model="vm.selectedEmailInvite" id="userInviteId"-->
+                <!--ng-keypress="($event.which === 13)?enterInviteUser(vm.selectedEmailInvite,$event):0"-->
+                <!--type="text" placeholder="Type the user's Email to Invite" style="padding-left: 10px;height: 35px;">-->
+                <!--<md-button aria-label="Open demo menu" class="md-raised md-accent" ng-disabled="userinvited" ng-click="enterInviteUser(vm.selectedEmailInvite,$event)">-->
+                <!--invite-->
+                <!--</md-button>-->
+                <!--</form>-->
+                <!--</div>-->
+
+                <!--<div ms-scroll>-->
+                <!--<div ng-show="showGlobalProgress">-->
+                <!--<md-progress-circular md-mode='indeterminate' md-diameter="150"></md-progress-circular>-->
+                <!--</div>-->
+
+                <!--<div ng-repeat="owernuser in users | orderBy:'Name' | filter:vm.selectedEmailInvite || undefined">-->
+                <!--&lt;!&ndash;track by owernuser.EmailAddress&ndash;&gt;-->
+                <!--&lt;!&ndash;START OF COLLAPSE CARD&ndash;&gt;-->
+                <!--<div ng-class="{'active': toggles[$index]}">-->
+
+                <!--&lt;!&ndash;START OF COLLAPSE CARD HEADING| filter:ctrl.actionSearchText||undefined&ndash;&gt;-->
+                <!--<div layout="row" layout-align="start center">-->
+                <!--&lt;!&ndash;<div class="collapse-card_header_content_controls" flex="10" layout="column" layout-align="center start">&ndash;&gt;-->
+                <!--<img src="{{getCatLetter(owernuser.name)}}"/>-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;END OF CARD CONTROLS SECTION&ndash;&gt;-->
+
+                <!--<div class="collapse-card_header_content_info" layout="row" layout-align="center start" flex="80" ng-click="toggleOne($index);">-->
+                <!--&lt;!&ndash;START OF CARD OPEN SECTION&ndash;&gt;-->
+                <!--<div layout="row" layout-align="center center" flex="80">-->
+                <!--<div flex>-->
+                <!--<h4 class="collapse-card__title">-->
+                <!--<div>{{owernuser.name}}</div>-->
+                <!--</h4>-->
+                <!--</div>-->
+
+                <!--<div flex class="blankspace">-->
+                <!--<h4 class="collapse-card__title">-->
+                <!--&lt;!&ndash;<span>{{owernuser.Email}}</span>&ndash;&gt;-->
+                <!--<span>{{owernuser.email}}</span>-->
+                <!--</h4>-->
+                <!--</div>-->
+
+                <!--<md-button ng-click="removeInviteUser(owernuser, $event)">-->
+                <!--<div layout="row">-->
+                <!--<p flex>Remove User</p>-->
+                <!--<md-icon md-svg-icon="app/core/cloudcharge/img/ic_delete_24px.svg"></md-icon>-->
+                <!--</div>-->
+                <!--</md-button>-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash;END OF CARD OPEN SECTION&ndash;&gt;-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;START OF CARD CONTROLS SECTION&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="collapse-card_header_content_controls" flex="10" layout="column" layout-align="center start">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-menu md-position-mode="target-right target">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu()">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-icon md-svg-icon="app/core/cloudcharge/img/ic_more_vert_24px.svg"></md-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-menu-content width="4">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-button ng-click="removeInviteUser(owernuser, $event)">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p flex>Remove User</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-icon md-svg-icon="app/core/cloudcharge/img/ic_delete_24px.svg"></md-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;END OF CARD CONTROLS SECTION&ndash;&gt;-->
+                <!--</div>-->
+                <!--&lt;!&ndash;END OF COLLAPSE CARD HEADING&ndash;&gt;-->
+
+                <!--&lt;!&ndash;START OF CARD BODY&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="collapse-card__body">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-divider></md-divider>&ndash;&gt;-->
+                <!--&lt;!&ndash;<form id="form" name="editForm">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-content layout-padding>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout-gt-sm="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<section-title title="User Details"></section-title>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm>&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Name</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.name" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm>&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Email</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.email" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout-gt-sm="row" ng-hide="!owernuser.address">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm ng-hide="!owernuser.address">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Billing Address</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.address" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout-gt-sm="row" ng-hide="!owernuser.company && !owernuser.phone">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm ng-hide="!owernuser.company">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Company</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.company" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm ng-hide="!owernuser.phone">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Phone Number</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.phone" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout-gt-sm="row" ng-hide="!owernuser.country && !owernuser.zipcode">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm ng-hide="!owernuser.country">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Country</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.country" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-input-container class="md-block" flex-gt-sm ng-hide="!owernuser.zipcode">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>Zip Code</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<input ng-model="owernuser.zipcode" readonly>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</md-content>&ndash;&gt;-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;END OF CARD BODY&ndash;&gt;-->
+
+                <!--</div>-->
+                <!--&lt;!&ndash;END OF COLLAPSE CARDS&ndash;&gt;-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;<div class="card-container" style="padding:20px;padding-top:58px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;WHITEFRAME START&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout layout-align="center center" style="margin:0 auto;max-width:960px">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout="row" style="width:100%;background:white;border-radius:0px 0px 2px 2px">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-autocomplete flex style="z-index:1; background: #FDFDFD;" ng-keypress="enter($event,vm.searchText)" ng-disabled="$root.isDisabled" md-no-cache="vm.noCache" md-selected-item="vm.selectedItem" md-search-text-change="vm.searchTextChange(vm.searchText)" md-search-text="vm.searchText" md-selected-item-change="vm.selectedItemChange(item)" md-items="item in vm.querySearch(vm.searchText)" md-item-text="item.display" md-min-length="0" placeholder="Search Application By Name">&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-autocomplete>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;WHITEFRAME END&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div style="margin:0 auto;max-width:960px;padding-left:20px; padding-right:20px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div style="position: fixed;bottom: 50%;right: 50%;z-index:2000;margin:-68px;" ng-show="showGlobalProgress">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-progress-circular md-mode='indeterminate' md-diameter="150"></md-progress-circular>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div  class="invoice-list-item" ng-repeat="apps in app | filter:vm.searchText || undefined track by apps.ApplicationID" ng-click="vm.selectInvoice(apps,apps.ApplicationID,apps.Name)">&lt;!&ndash;&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash;START OF COLLAPSE CARD HEADING| filter:ctrl.actionSearchText||undefined&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="collapse-card__heading" layout="row" layout-align="start start" >&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="collapse-card_header_content_controls" flex="10" layout="column" layout-align="center start">&ndash;&gt;-->
+                <!--&lt;!&ndash;<img src="{{apps.iconUrl}}" style="margin-top:8px;border-radius:20px;width:28px;height:28px;"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF CARD CONTROLS SECTION&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;START OF CARD OPEN SECTION&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout="row" layout-align="center start" flex="80">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div flex="50">&ndash;&gt;-->
+                <!--&lt;!&ndash;<h4 class="collapse-card__title"  style="margin-top:8px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div>{{apps.Name}}</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div flex="50" class="blankspace">&ndash;&gt;-->
+                <!--&lt;!&ndash;<h4 class="collapse-card__title" style="margin-top:8px;">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>{{apps.Description}}</span>&ndash;&gt;-->
+                <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div flex>&ndash;&gt;-->
+                <!--&lt;!&ndash;<h4 class="collapse-card__title" style="margin-top:8px;float:right;">&ndash;&gt;-->
+                <!--&lt;!&ndash;</h4>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF CARD OPEN SECTION&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash;START OF CARD CONTROLS SECTION&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div class="collapse-card_header_content_controls" flex="10" layout="column" layout-align="center start">&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<md-menu md-position-mode="target-right target">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu()">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-icon md-svg-icon="img/ic_more_vert_24px.svg"></md-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-menu-content width="4">&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-menu-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-button ng-click="share(apps.ApplicationID,apps.Name)">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div layout="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p flex>Share Application</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;<md-icon md-svg-icon="img/ic_insert_drive_file_24px.svg"></md-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu-item>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu-content>&ndash;&gt;-->
+                <!--&lt;!&ndash;</md-menu>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF CARD CONTROLS SECTION&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF COLLAPSE CARD HEADING&ndash;&gt;-->
+
+                <!--&lt;!&ndash;&lt;!&ndash;START OF CARD BODY&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="collapse-card__body">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF CARD BODY&ndash;&gt;-->
+
+
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;END OF COLLAPSE CARDS&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--</div>-->
+                <!-- / CONTENT WRAPPER -->
+
+            </div>
+            <!-- / CONTENT CARD -->
+        </div>
+    </div>
+    <!-- / CENTER -->
+
+</div>
