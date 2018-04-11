@@ -15,7 +15,7 @@
 		.controller('UserAdminController', UserAdminController);
 
 	/** @ngInject */
-	function UserAdminController($scope, $http, $auth, $apps, $state, $stateParams, notifications, $document, $timeout, $mdDialog, $mdMedia, $mdSidenav, $v6urls,$charge,$productHandler,$filter,$helpers)
+	function UserAdminController($scope, $http, $state, $stateParams, notifications, $document, $timeout, $mdDialog, $mdMedia, $mdSidenav,$charge,$productHandler,$filter)
 	{
 		var vm = this;
 
@@ -93,6 +93,12 @@
 				vm.scrollEl.scrollTop(0);
 			});
 		}
+
+		(function(){
+			$http.get('app/core/cloudcharge/js/config.json').then(function (res) {
+				$scope.configURL = res.data;
+			}, function(res) {});
+		})();
 
 		/**
 		 * Close read pane
@@ -288,6 +294,7 @@
 		}
 
 		var idToken = gst("securityToken");
+		var category = gst("category");
 		// var idToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ilg1ZVhrNHh5b2pORnVtMWtsMll0djhkbE5QNC1jNTdkTzZRR1RWQndhTmsifQ.eyJleHAiOjE1MDc3ODQwMzMsIm5iZiI6MTUwNzcwMTIzMywidmVyIjoiMS4wIiwiaXNzIjoiaHR0cHM6Ly9sb2dpbi5taWNyb3NvZnRvbmxpbmUuY29tL2MxZjlmOGU2LTM0NjktNGQ1Zi1hMzI2LTgzZTk5MGE5OTI2YS92Mi4wLyIsInN1YiI6ImM1YzA1MmUxLWY0NjQtNDgzYS04OTRiLTRlNWRiOGQ4ZjFjNCIsImF1ZCI6ImQwODRhMjI3LWJiNTItNDk5Mi04ODlkLTZlNDgzNTYxMGU3NiIsIm5vbmNlIjoiZGVmYXVsdE5vbmNlIiwiaWF0IjoxNTA3NzAxMjMzLCJhdXRoX3RpbWUiOjE1MDc3MDEyMzMsIm9pZCI6ImM1YzA1MmUxLWY0NjQtNDgzYS04OTRiLTRlNWRiOGQ4ZjFjNCIsImdpdmVuX25hbWUiOiJjaGlubyIsIm5hbWUiOiJuaWNvZGVtdXMiLCJjb3VudHJ5IjoiU3JpIExhbmthIiwiZXh0ZW5zaW9uX21vZGUiOiJ0ZXN0IiwiZXh0ZW5zaW9uX0RvbWFpbiI6Im5pY29kZW11cy5hcHAuY2xvdWRjaGFyZ2UuY29tIiwiZmFtaWx5X25hbWUiOiJmcmVlX3RyaWFsIiwiam9iVGl0bGUiOiJhZG1pbiIsImVtYWlscyI6WyJjaGluby5uaWNvZGVtdXNAb291LnVzIl0sInRmcCI6IkIyQ18xX0RlZmF1bHRQb2xpY3kifQ.omLBXMvaSq7p3DGB9csxnzo9SSMQ7xtnDT2J2ZPbw3RVGJHfOOvTLEv4s1Ie59Yw6aKZ9LAGh1KbPvnyZCOGNE7rZ9ezSwruloVwDet9e6PUQI_enk7dDkUeRkbIuzoFD7_Cne3zxi1TDkAGEGs7pbYr9XHiDT2pbpe3QXE_chKcnk5BtoZY11voReycBF23U0AwyixOT0tI_RNKPy9yF6iSHxoP_77RdKirGo7dU_VBqfmc9ea7fIg8WIdqgaWR73cVsI_Tj9NkDgpWQQLpRsjvcgh7e2e2u8BX0rd20uJi5jp13Sy4HPEvIrkCG4GKV4MC3yTm-e6iaGBIk2FDjw";
 
 		function getCurrentDomain() {
@@ -448,50 +455,47 @@
 		$scope.invitationLogs = [];
 		function loadInvitationLogs() {
 			$scope.invitationLogs = [];
-			$http.get('app/core/cloudcharge/js/config.json').then(function (res) {
-				$scope.configURL = res.data;
-				$http({
-					method:'GET',
-					url: $scope.configURL.invitationLog.invitationDomainLogURL,
-					headers: {
-						'idToken':idToken,
-						'domain':domain,
-						'Content-type':'applicatoin/json'
-					}
-				}).then(function(res) {
-					if(res.data.status){
-						angular.forEach(res.data.result[0], function (log) {
-							$scope.invitationLogs.push({
-								email:log.email,
-								status:log.status,
-								name:log.name,
-								createdDate:log.createdDate,
-								updatedDate:log.updatedDate
-							});
-
-
-							// angular.forEach($scope.users, function (user) {
-							// 	if(user.signInNames[0].value == log.email){
-							// 		user.status = log.status
-							// 	}else{
-							// 		if(log.status == 'Expired' || log.status == 'Confirmed'){
-							// 			$scope.users.push({
-							// 				email:log.email,
-							// 				status:log.status,
-							// 				name:log.name,
-							// 				createdDate:log.createdDate,
-							// 				updatedDate:log.updatedDate
-							// 			});
-							// 		}
-							// 	}
-							// });
+			$http({
+				method:'GET',
+				url: $scope.configURL.invitationLog.invitationDomainLogURL,
+				headers: {
+					'idToken':idToken,
+					'domain':domain,
+					'Content-type':'applicatoin/json'
+				}
+			}).then(function(res) {
+				if(res.data.status){
+					angular.forEach(res.data.result[0], function (log) {
+						$scope.invitationLogs.push({
+							email:log.email,
+							status:log.status,
+							name:log.name,
+							createdDate:log.createdDate,
+							updatedDate:log.updatedDate
 						});
-					}
-					$scope.showGlobalProgress = false;
-				}, function (errorRes) {
-					$scope.showGlobalProgress = false;
-				});
-			}, function (res) {});
+
+
+						// angular.forEach($scope.users, function (user) {
+						// 	if(user.signInNames[0].value == log.email){
+						// 		user.status = log.status
+						// 	}else{
+						// 		if(log.status == 'Expired' || log.status == 'Confirmed'){
+						// 			$scope.users.push({
+						// 				email:log.email,
+						// 				status:log.status,
+						// 				name:log.name,
+						// 				createdDate:log.createdDate,
+						// 				updatedDate:log.updatedDate
+						// 			});
+						// 		}
+						// 	}
+						// });
+					});
+				}
+				$scope.showGlobalProgress = false;
+			}, function (errorRes) {
+				$scope.showGlobalProgress = false;
+			});
 		}
 
 		$scope.appIdList=[];
@@ -551,13 +555,18 @@
 						var domain=data.data[i].body.displayName.split('_')[0];
 						if(appname!="" && appname!=undefined && appname!="User" && appname!="myaccount" && appname!="setupguide")
 						{
-							$scope.allApps.push({
-								'Name': appname,
-								'ApplicationID': data.data[i].body.id,
-								'isSelected': false,
-								'domain' : domain
-							});
-
+							if(domain == $scope.currDomainGlobal){
+								$.each($scope.configURL.apps[category], function(index, categoryapp){
+									if(appname == categoryapp){
+										$scope.allApps.push({
+											'Name': appname,
+											'ApplicationID': data.data[i].body.id,
+											'isSelected': false,
+											'domain' : domain
+										});
+									}
+								});
+							}
 							//$scope.appIdList.push(data.data[i].body.id);
 						}
 					}
