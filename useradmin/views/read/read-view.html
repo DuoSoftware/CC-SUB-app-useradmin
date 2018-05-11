@@ -42,8 +42,8 @@
             <md-content layout="column" layout-align="center start" flex ms-scroll class="p-20">
                 <md-checkbox ng-click="selectAppForInviteUser(app)" ng-change="selectAppForInviteUser(app)" ng-model="app.isSelected" class="md-primary" layout="row" layout-align="start center" ng-repeat="app in allApps" style="display: inline-block">
                     <!-- <img src="app/core/app_icons/{{app.Name}}_app_icon_black.png" alt="app.Name" class="w-25"> -->
-                    <span class="nav_item_img nav-icon {{'nav-icon-'+app.Name}}" style="display: inline-block"></span>
-                    <span class="fs-18 text-capitalize ml-20"> {{app.Name}}</span>
+                    <span class="nav_item_img nav-icon nav-icon-{{app.Name}}-black" style="display: inline-block;top: 5px;position:  relative"></span>
+                    <span class="fs-18 text-capitalize ml-20" style="position: relative;top: -7px"> {{app.Name == 'payment' ? 'Receipt' : app.Name}}</span>
                 </md-checkbox>
             </md-content>
             
