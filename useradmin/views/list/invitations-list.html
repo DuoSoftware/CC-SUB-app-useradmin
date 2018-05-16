@@ -62,7 +62,6 @@
                 <md-progress-circular md-mode="indeterminate"></md-progress-circular>
             </div>
             <div class="msg-empty-list full animate-fade-in-out" layout="column" layout-align="center center" ng-if="vm.plans.length == 0">
-                <img src="app/core/app_icons/plan_app_icon_list.svg" alt="No adjustments">
                 <div class="mt-20">You have'nt created any plans yet</div>
             </div>
 
@@ -179,7 +178,7 @@
                 </md-card-title>
                 <md-card-content>
                     <div class="entitled-apps mr-15" ng-repeat="appName in entitledApps">
-                        <img ng-src="app/core/app_icons/{{appName | lowercase}}_app_icon.png"/> <span>{{appName}}</span>
+                      <span class="nav_item_img nav-icon icon-black nav-icon-{{appName | lowercase}}-black" style="display: inline-block;top: 5px;position:  relative"></span> <span>{{appName}}</span>
                     </div>
                 </md-card-content>
             </md-card>

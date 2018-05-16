@@ -46,7 +46,7 @@
                     <span class="fs-18 text-capitalize ml-20" style="position: relative;top: -7px"> {{app.Name == 'payment' ? 'Receipt' : app.Name}}</span>
                 </md-checkbox>
             </md-content>
-            
+
             <!--<div ng-repeat="app in allApps" ng-click="selectAppForInviteUser(app)" flex class="list-cust" layout-align="start center" layout="row">-->
                 <!--<div layout="row" layout-align="center center" flex>-->
                     <!--<div flex>-->
@@ -106,7 +106,7 @@
 
                         <div flex class="p-10 {{$index != app.length-1 ? 'bb b-light' : null}}" layout-align="start center" layout="row" ng-repeat="apps in app | filter:vm.searchText || undefined track by apps.ApplicationID" ng-if="apps.domain == currDomainGlobal">
                             <div layout="row" layout-align="start center" flex class="app-sharable">
-                                <img ng-src="app/core/app_icons/{{apps.Name | lowercase}}_app_icon_black.png" alt="" class="w-20 mr-10"/>
+                              <span class="nav_item_img nav-icon icon-black nav-icon-{{apps.Name | lowercase}}-black" style="display: inline-block;top: 5px;position:  relative"></span>
                                 <span class="fw-500 text-capitalize">{{apps.Name}}</span>
                             </div>
                             <md-button class="md-icon-button" ng-click="vm.selectInvoice(apps,apps.ApplicationID,apps.Name)"><md-icon md-font-icon="icon-share"></md-icon>
@@ -147,7 +147,7 @@
             <div flex layout="column" layout-align="start center" class="p-16">
                 <div layout="column" layout-align="center center" class="shared-app">
                     <div layout="row" layout-align="center center">
-                        <img ng-src="app/core/app_icons/{{name | lowercase}}_app_icon_black.png" alt=""/> <h1 style="text-transform: capitalize;color: #6e9bb1;">{{name}}</h1>
+                      <span class="nav_item_img nav-icon icon-black nav-icon-{{name | lowercase}}-black" style="display: inline-block;top: 5px;position:  relative"></span> <h1 style="text-transform: capitalize;color: #6e9bb1;">{{name}}</h1>
                     </div>
                     <div layout="row" layout-align="center center">
                         <p>is shared with</p>
